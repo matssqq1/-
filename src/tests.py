@@ -15,5 +15,8 @@ from test import taims
 #     s = s -60
 # print(b,":",s)
 a = taims()
-
-print(a)
+start_hous = a[0]
+start_minets = a[1]
+ends_hous = a[2]
+ends_minets = a[3]
+print(start_hous,start_minets,ends_hous,ends_minets)

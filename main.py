@@ -2,7 +2,12 @@ import telebot
 from telebot import types
 from src.test import taims
 
+
 taimsq1 = taims
+start_hous = taimsq1[0]
+start_minets = taimsq1[1]
+ends_hous = taimsq1[2]
+ends_minets = taimsq1[3]
 bot = telebot.TeleBot('8130108661:AAES_8zx0x-fWAucFfUQ7GHTmFqV_WES5k4')
 
 #end calculation command body/органа управления расчетами
