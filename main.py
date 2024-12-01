@@ -3,11 +3,12 @@ from telebot import types
 from src.test import taims
 
 
-taimsq1 = taims
-start_hous = taimsq1[0]
-start_minets = taimsq1[1]
-ends_hous = taimsq1[2]
-ends_minets = taimsq1[3]
+a = taims()
+start_hous = a[0]
+start_minets = a[1]
+ends_hous = a[2]
+ends_minets = a[3]
+
 bot = telebot.TeleBot('8130108661:AAES_8zx0x-fWAucFfUQ7GHTmFqV_WES5k4')
 
 #end calculation command body/органа управления расчетами
@@ -35,12 +36,14 @@ def message(message):
 
 @bot.message_handler(content_types=['text'])
 def text_messages(message):
-    taims = taimsq1
+    start_hous = start_hous
+    start_minets = start_minets
+    ends_hous = ends_hous
+    ends_minets = ends_minets
     if message.text == 'Назад':
         bot.send_message(message.chat.id, "Добро пожаловать обратно сударь каково ваше следующие желание",reply_markup=menu)
     elif message.text == 'время до начала следующей пары':
-        bot.send_message(message.chat.id, f"{}:{}", reply_markup=back)
+        bot.send_message(message.chat.id, f"{start_hous}:{start_minets}", reply_markup=back)
     elif message.text == 'Время до каонца текущей пары':
-        bot.send_message(message.chat.id, f"{}:{}")
-
+        bot.send_message(message.chat.id, f"{ends_hous}:{ends_minets}")
 bot.infinity_polling()
