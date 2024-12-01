@@ -1,4 +1,4 @@
-import get_info
+import api.parcer as parcer
 import json
 import datetime
 
@@ -10,7 +10,7 @@ import datetime
 
 date = datetime.date(2024, 12, 2) # date for get info
 
-getter = get_info.parcer() # create object for parcing(maybe i create other methods)
+getter = parcer.parcer() # create object for parcing(maybe i create other methods)
 
 if getter.get_info("09.07.32", date) == 0: # check for errors and creating json
 
