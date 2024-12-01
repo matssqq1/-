@@ -1,8 +1,8 @@
 import telebot
 from telebot import types
-from test import Taim_pars
-taimss = Taim_pars()
-taimsq1 = taimss.taims()
+from test.test import taims
+
+
 bot = telebot.TeleBot('8130108661:AAES_8zx0x-fWAucFfUQ7GHTmFqV_WES5k4')
 
 #end calculation command body/органа управления расчетами
