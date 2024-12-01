@@ -1,8 +1,7 @@
 import telebot
 from telebot import types
 from src.test import taims
-
-
+#вытаскиваем из масива часы и менуты для бота
 a = taims()
 start_hous = a[0]
 start_minets = a[1]
@@ -36,14 +35,14 @@ def message(message):
 
 @bot.message_handler(content_types=['text'])
 def text_messages(message):
-    start_hous = start_hous
-    start_minets = start_minets
-    ends_hous = ends_hous
-    ends_minets = ends_minets
-    if message.text == 'Назад':
-        bot.send_message(message.chat.id, "Добро пожаловать обратно сударь каково ваше следующие желание",reply_markup=menu)
-    elif message.text == 'время до начала следующей пары':
-        bot.send_message(message.chat.id, f"{start_hous}:{start_minets}", reply_markup=back)
+    start_hous_bot = start_hous
+    start_minets_bot = start_minets
+    ends_hous_bot = ends_hous
+    ends_minets_bot = ends_minets
+    if message.text == 'аим ис кам бек кхе кхе..':
+        bot.send_message(message.chat.id, "Добро пожаловать обратно сударь каково ваше следующие желание", reply_markup=menu)
+    elif message.text == 'время до начала следующей пары по расписанию и конца текущий':
+        bot.send_message(message.chat.id, f"{start_hous_bot}:{start_minets_bot}", reply_markup=back)
     elif message.text == 'Время до каонца текущей пары':
-        bot.send_message(message.chat.id, f"{ends_hous}:{ends_minets}")
+        bot.send_message(message.chat.id, f"{ends_hous_bot}:{ends_minets_bot}", reply_markup=back)
 bot.infinity_polling()
