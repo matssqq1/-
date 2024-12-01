@@ -4,6 +4,10 @@ from telebot import types
 
 bot = telebot.TeleBot('8130108661:AAES_8zx0x-fWAucFfUQ7GHTmFqV_WES5k4')
 #calculation command body/орган управления расчетами
+now = datetime.datetime.now()
+minutes_now = now.minute
+hours_now = now.hour
+if hours_now == 
 times = 10
 #end calculation command body/органа управления расчетами
 menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
