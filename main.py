@@ -1,15 +1,13 @@
 import telebot
-import datetime
 from telebot import types
-
+from test import Taim_pars
+taimss = Taim_pars()
+taimsq1 = taimss.taims()
 bot = telebot.TeleBot('8130108661:AAES_8zx0x-fWAucFfUQ7GHTmFqV_WES5k4')
-
-#calculation command body/орган управления расчетами
 
 #end calculation command body/органа управления расчетами
 menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
-para_start = types.KeyboardButton("время до начала следующей пары по расписанию")
-para_end = types.KeyboardButton("время до конца слеующей пары")
+para_start = types.KeyboardButton("время до начала следующей пары по расписанию и конца текущий")
 menu.add(para_start)
 
 back = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -31,15 +29,11 @@ def message(message):
 
 @bot.message_handler(content_types=['text'])
 def text_messages(message):
-    start_times_pars_hours = x_start_hours
-    start_times_pars_minutes = x_start_minutes
-    ends_times_pars_hoirs = x_ends_hors
-    ends_times_pars_minutes = x_ends_minutes
+    taims = taimsq1
     if message.text == 'Назад':
         bot.send_message(message.chat.id, "Добро пожаловать обратно сударь каково ваше следующие желание",reply_markup=menu)
     elif message.text == 'время до начала следующей пары':
-        bot.send_message(message.chat.id, f"время до начала следующей пары = {start_times_pars_hours}:{start_times_pars_minutes}", reply_markup=back)
-    elif message.text == 'время до конца слеующей пары':
-        bot.send_message(message.chat.id, f"время до начала следующей пары = {ends_times_pars_hoirs}:{ends_times_pars_minutes}", reply_markup=back)
+        bot.send_message(message.chat.id, f"{taims}", reply_markup=back)
+
 
 bot.infinity_polling()
