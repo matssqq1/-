@@ -14,7 +14,7 @@ bot = telebot.TeleBot('8130108661:AAES_8zx0x-fWAucFfUQ7GHTmFqV_WES5k4')
 #end calculation command body/органа управления расчетами
 menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
 para_ends = types.KeyboardButton("Время до каонца текущей пары")
-para_start = types.KeyboardButton("время до начала следующей пары по расписанию и конца текущий")
+para_start = types.KeyboardButton("время до начала следующей пары")
 menu.add(para_start,para_ends)
 
 back = types.ReplyKeyboardMarkup(resize_keyboard=True)
@@ -42,7 +42,7 @@ def text_messages(message):
     ends_minets_bot = ends_minets
     if message.text == 'аим ис кам бек кхе кхе..':
         bot.send_message(message.chat.id, "Добро пожаловать обратно сударь каково ваше следующие желание", reply_markup=menu)
-    elif message.text == 'время до начала следующей пары по расписанию и конца текущий':
+    elif message.text == 'время до начала следующей пары':
         bot.send_message(message.chat.id, f"{start_hous_bot}:{start_minets_bot}", reply_markup=back)
     elif message.text == 'Время до каонца текущей пары':
         bot.send_message(message.chat.id, f"{ends_hous_bot}:{ends_minets_bot}", reply_markup=back)
