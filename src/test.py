@@ -1,14 +1,15 @@
+from datetime import datetime
+
 def taims():
-    import datetime
     #p1 = первая пара p2 = вторая p1_1 = начало 1 пары p1_2 = конец пары
-    now = datetime.now()# сегоднешняя пара
+    now = datetime.now() # сегоднешняя пара
     #значения конечные = 0 для работы логики
     x_start_hours = 0
     x_start_minutes = 0
     x_ends_hours = 0
     x_ends_minutes = 0
     #рассписание пар
-    
+
     p1_1 = datetime(now.year, now.month, now.day, 8, 30)
     p1_2 = datetime(now.year, now.month, now.day, 10, 5)
 
