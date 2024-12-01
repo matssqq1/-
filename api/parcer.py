@@ -3,6 +3,7 @@ import codecs
 from bs4 import BeautifulSoup
 import json
 import datetime
+import os
 
 class parcer:
     
@@ -27,6 +28,8 @@ class parcer:
         soup = BeautifulSoup(html_file.read(), 'html.parser')
         html_file.close()
         
+        os.remove('cache/%s.html' % (group))
+
         month_list = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
         days_list = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
 
@@ -86,11 +89,15 @@ class parcer:
         except:
             return -1
 
+        # print(para[1])
+        # print(para[1].split('–')[1])
+
         objects = [] # json write
         for i in range(0, len(para), 5):
             obj = {
                 "number": para[i],
-                "time": para[i+1],
+                "time-start": para[i+1].split('–')[0],
+                "time-end": para[i+1].split('–')[1],
                 "subject": para[i+2],
                 "teacher": para[i+3],
                 "room": para[i+4]
@@ -105,4 +112,39 @@ class parcer:
         json_file.close()
 
         return 0
+    
+    
+    def read_users(chat_id):
+        with open('data/users.json', 'r') as file: # read the json
+            data = json.load(file)
+
+        for i in range(len(data)):
+            #print(data[i])
+            if data[i]['chat_id'] == chat_id:
+                return data[i]['group']
         
+        return -1
+    
+    def write_users(self, chat_id, group):
+        with open('data/users.json', 'r') as file: # read the json
+            data = json.load(file)
+        
+        statement = True
+
+        for i in range(len(data)):
+            #print(data[i])
+            if data[i]['chat_id'] == chat_id:
+                if data[i]['group'] != group:
+                    data[i]['group'] = group
+                    statement = False
+                    break
+                statement = False
+                break
+
+        if statement:
+            data.append({"chat_id": chat_id, "group": group})
+
+        file = open('data/users.json', 'w')
+        content = json.dumps(data)
+        file.write(content)
+        file.close()

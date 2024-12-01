@@ -1,21 +1,36 @@
-import api.parcer as parcer
+import parcer as parcer
 import json
 import datetime
 
-# 1 - para num
-# 2 - para time
-# 3 - para name
-# 4 - prepod
-# 5 - room
+#   "number": para[i],
+#   "time": para[i+1],
+#   "subject": para[i+2],
+#   "teacher": para[i+3],
+#   "room": para[i+4]
 
-date = datetime.date(2024, 12, 2) # date for get info
+date = datetime.datetime.now() # date for get info
 
-getter = parcer.parcer() # create object for parcing(maybe i create other methods)
+print(f"{date.day}:{date.weekday()}")
 
-if getter.get_info("09.07.32", date) == 0: # check for errors and creating json
+date2 = datetime.datetime.now()
+date2 = date2.replace(hour='16', minute='10')
+ 
+print(f"{date2.hour}:{date2.minute}")
 
-    with open('cache/09.07.32.json', 'r') as file: # read the json
-        data = json.load(file)
+# print(date < date2)
 
-    for i in range(len(data)): # print the json
-        print(data[i])
+# getter = parcer.parcer() # create object for parcing(maybe i create other methods)
+# 
+# if getter.get_info("09.07.32", date) == 0: # check for errors and creating json
+# 
+#     with open('cache/09.07.32.json', 'r') as file: # read the json
+#         data = json.load(file)
+# 
+#     for i in range(len(data)): # print the json
+#         print(data[i])
+# 
+#     with open('data/users.json', 'r') as file: # read the json
+#         data = json.load(file)
+# 
+#     for i in range(len(data)): # print the json
+#         print(data[i])
