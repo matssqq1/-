@@ -1,6 +1,5 @@
-from datetime import datetime
-
 def taims():
+    from datetime import datetime
     #p1 = первая пара p2 = вторая p1_1 = начало 1 пары p1_2 = конец пары
     now = datetime.now() # сегоднешняя пара
     #значения конечные = 0 для работы логики
@@ -131,4 +130,4 @@ def taims():
                     time_difference = p6_2 - now
                     x_ends_hours = time_difference.seconds // 3600
                     x_ends_minutes = (time_difference.seconds % 3600) // 60
-    print(f"начало следующей пары через{x_start_hours}:{x_start_minutes}\nконец этой пары через{x_ends_hours}:{x_ends_minutes}")
+    return x_start_hours,x_start_minutes,x_ends_hours,x_ends_minutes

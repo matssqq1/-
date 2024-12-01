@@ -2,8 +2,7 @@ import telebot
 from telebot import types
 from src.test import taims
 
-taimsq1 = taims()
-
+taimsq1 = taims
 bot = telebot.TeleBot('8130108661:AAES_8zx0x-fWAucFfUQ7GHTmFqV_WES5k4')
 
 #end calculation command body/органа управления расчетами
@@ -34,7 +33,7 @@ def text_messages(message):
     if message.text == 'Назад':
         bot.send_message(message.chat.id, "Добро пожаловать обратно сударь каково ваше следующие желание",reply_markup=menu)
     elif message.text == 'время до начала следующей пары':
-        bot.send_message(message.chat.id, f"{taims}", reply_markup=back)
+        bot.send_message(message.chat.id, f"{taims}", reply_markup=back.format(str))
 
 
 bot.infinity_polling()
