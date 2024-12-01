@@ -12,8 +12,9 @@ bot = telebot.TeleBot('8130108661:AAES_8zx0x-fWAucFfUQ7GHTmFqV_WES5k4')
 
 #end calculation command body/органа управления расчетами
 menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
+para_ends = types.KeyboardButton("Время до каонца текущей пары")
 para_start = types.KeyboardButton("время до начала следующей пары по расписанию и конца текущий")
-menu.add(para_start)
+menu.add(para_start,para_ends)
 
 back = types.ReplyKeyboardMarkup(resize_keyboard=True)
 back_button = types.KeyboardButton("аим ис кам бек кхе кхе..")
@@ -38,7 +39,8 @@ def text_messages(message):
     if message.text == 'Назад':
         bot.send_message(message.chat.id, "Добро пожаловать обратно сударь каково ваше следующие желание",reply_markup=menu)
     elif message.text == 'время до начала следующей пары':
-        bot.send_message(message.chat.id, f"{taims}", reply_markup=back.format(str))
-
+        bot.send_message(message.chat.id, f"{}:{}", reply_markup=back)
+    elif message.text == 'Время до каонца текущей пары':
+        bot.send_message(message.chat.id, f"{}:{}")
 
 bot.infinity_polling()
