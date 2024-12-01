@@ -8,18 +8,25 @@ def taims():
     x_ends_hours = 0
     x_ends_minutes = 0
     #рассписание пар
+    
     p1_1 = datetime(now.year, now.month, now.day, 8, 30)
     p1_2 = datetime(now.year, now.month, now.day, 10, 5)
+
     p2_1 = datetime(now.year, now.month, now.day, 10, 15)
     p2_2 = datetime(now.year, now.month, now.day, 11, 50)
+
     p3_1 = datetime(now.year, now.month, now.day, 12, 20)
     p3_2 = datetime(now.year, now.month, now.day, 13, 55)
+
     p4_1 = datetime(now.year, now.month, now.day, 14, 25)
     p4_2 = datetime(now.year, now.month, now.day, 16, 00)
+
     p5_1 = datetime(now.year, now.month, now.day, 16, 10)
     p5_2 = datetime(now.year, now.month, now.day, 17, 45)
+
     p6_1 = datetime(now.year, now.month, now.day, 17, 55)
     p6_2 = datetime(now.year, now.month, now.day, 19, 30)
+
     now = datetime.now()
     # вычесления для времения начало пары 1 пара
     if now < p1_1:
