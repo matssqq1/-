@@ -1,6 +1,7 @@
 import telebot
 from telebot import types
 from src.test import taims
+
 #вытаскиваем из масива часы и менуты для бота
 a = taims()
 start_hous = a[0]
