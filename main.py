@@ -54,7 +54,8 @@ def text_messages(message):
 
     if message.text[:4].lower() == 'пара':
         today = datetime.datetime.now()
-        # today = today.replace(hour=16, minute=9) # DEBUG
+        #today = today.replace(day=8, hour=0, minute=11) # DEBUG
+        days_ago = 0
 
         group = parcer.read_users(message.chat.id)
         if group == -1:
@@ -76,6 +77,8 @@ def text_messages(message):
                 para_ends_today = today
                 para_ends_today = para_ends_today.replace(hour=int(data[len(data) - 1]['time-end'].split(':')[0]), minute=int(data[len(data) - 1]['time-end'].split(':')[1]))
                 
+                
+
                 if para_ends_today < today and para_ends_today.day == today.day:
                     bot.send_message(message.chat.id, f"Сегодня пар нет! Последняя пара закончилась в: {data[len(data) - 1]['time-end']}", reply_markup=menu)
 
@@ -84,15 +87,23 @@ def text_messages(message):
 
                 for i in range(len(data)):
                     para_time = para_time.replace(hour=int(data[i]['time-start'].split(':')[0]), minute=int(data[i]['time-start'].split(':')[1]))
+
+                    delta = para_time - today
+
                     if para_time > today:
-                        bot.send_message(message.chat.id, f"Ближайшая пара:\n{date_call}\n{data[i]['number']}, пройдёт: {data[i]['time-start']} - {data[i]['time-end']},\n{data[i]['subject']} {data[i]['teacher']} {data[i]['room']}", reply_markup=menu)
+                        if days_ago > 0:
+                            bot.send_message(message.chat.id, f"Ближайшая пара через: {days_ago} дн\n{date_call}\n{data[i]['number']}, пройдёт: {data[i]['time-start']} - {data[i]['time-end']},\n{data[i]['subject']} {data[i]['teacher']} {data[i]['room']}", reply_markup=menu)
+                        else:
+                            bot.send_message(message.chat.id, f"Ближайшая пара через: {str(delta)[:5].split(':')[0]}ч {str(delta)[:5].split(':')[1]}м\n{date_call}\n{data[i]['number']}, пройдёт: {data[i]['time-start']} - {data[i]['time-end']},\n{data[i]['subject']} {data[i]['teacher']} {data[i]['room']}", reply_markup=menu)
                         return
                 
             else:
+                days_ago = days_ago + 1
                 today = today + datetime.timedelta(days=1)
                 today = today.replace(hour=0, minute=0)
 
         bot.send_message(message.chat.id, "в ближайшее время нет пар!", reply_markup=menu)
+
     elif message.text[:6].lower() == 'группа':
         bot.send_message(message.chat.id, "а теперь напиши свою группу!", reply_markup=menu)
         global change_group_flag
@@ -100,8 +111,10 @@ def text_messages(message):
         
     elif change_group_flag == True:
         group = message.text
-        getter.write_users(message.chat.id, group)
-
+        if getter.write_users(message.chat.id, group) == -1:
+            bot.send_message(message.chat.id, "Неккоректный формат группы, попробуйте еще раз! Формат в виде: 00.00.00", reply_markup=menu)
+            return
+        
         bot.send_message(message.chat.id, "группа сохранена", reply_markup=menu)
         #global change_group_flag
         change_group_flag = False

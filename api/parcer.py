@@ -2,7 +2,7 @@ import requests
 import codecs
 from bs4 import BeautifulSoup
 import json
-import datetime
+import re
 import os
 
 class parcer:
@@ -130,7 +130,18 @@ class parcer:
             data = json.load(file)
         
         statement = True
+        
+        group = group.strip()
 
+        pattern = r'^\d{2}.\d{2}.\d{2}$'
+        #print(group)
+
+        # Проверяем соответствие
+        if re.match(pattern, group):
+            pass
+        else:
+            return -1
+        
         for i in range(len(data)):
             #print(data[i])
             if data[i]['chat_id'] == chat_id:
