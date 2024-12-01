@@ -1,5 +1,7 @@
 import requests
 import codecs
+from bs4 import BeautifulSoup
+
 class parcer:
     
 
@@ -13,8 +15,15 @@ class parcer:
         response = requests.get(url=url, headers=headers)
         response.encoding = response.apparent_encoding
 
-        print(response.text)
+        #print(response.text)
 
         out_file = codecs.open('cache/%s.html' % (group), 'w', 'utf-8')
         out_file.write(response.text)
         out_file.close()
+
+        html_file = codecs.open('cache/%s.html' % (group), 'r', 'utf-8')
+        soup = BeautifulSoup(html_file.read(), 'html.parser')
+        html_file.close()
+
+        print(soup.select)
+        
