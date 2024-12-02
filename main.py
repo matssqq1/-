@@ -68,7 +68,7 @@ def text_messages(message):
 
             for i in range(5): # check the last 5 days
                 if getter.get_info(group, today) == 0:
-                    print("im not here")
+                    #print("im not here")
                     data = trnz.json_read(f'cache/{group}.json') # read the json
 
                     date_call = "%s, %s %s" % (days_list[today.weekday()], today.day, month_list[today.month - 1]) # date to format: Суббота, 7 декабря
@@ -103,14 +103,14 @@ def text_messages(message):
                     days_ago = days_ago + 1
                     today += datetime.timedelta(days=1)
                     today = today.replace(hour=0, minute=0)
-                    print("im here!")
+                    #print("im here!")
 
 
                 else: # if today is no para
                     days_ago = days_ago + 1
                     today += datetime.timedelta(days=1)
                     today = today.replace(hour=0, minute=0)
-                    print("im here!")
+                    #print("im here!")
 
             bot.send_message(message.chat.id, "В ближайшее время нет пар!", reply_markup=menu) # if no para in nearest 5 days
 
