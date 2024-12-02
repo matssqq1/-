@@ -11,6 +11,8 @@ class parcer:
         pass
     def get_info(self, group, date):
         try:
+            print(f"group: {group}, date: {date}, url: {'cache/%s.html' % (group)}")
+
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'
             }

@@ -13,7 +13,7 @@ def write_users(chat_id, group):
             data = json.load(file)
         statement = True
         group = group.strip()
-        pattern = r'^\d{2}.\d{2}.\d{2}$'
+        pattern = r'^\d{2}.\d{2}'
         #print(group)
         # Проверяем соответствие
         if re.match(pattern, group):
