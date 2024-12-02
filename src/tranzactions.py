@@ -11,16 +11,20 @@ def write_users(chat_id, group):
     try:
         with open('data/users.json', 'r') as file: # read the json
             data = json.load(file)
+
         statement = True
         group = group.strip()
-        pattern = r'^\d{2}.\d{2}'
-        #print(group)
-        # Проверяем соответствие
-        if re.match(pattern, group):
-            pass
-        else:
-            log_write('logs/user_changes.log', f"uncorrect transaction occured! user: {chat_id}, group: {group}")
-            return -1
+
+        # print(group) # проверка
+        # pattern = r'^d{2}.d{2}.d{2}[п]?d?$'
+        # #print(group)
+        # # Проверяем соответствие
+        # if re.search(pattern, group):
+        #     pass
+        # else:
+        #     log_write('logs/user_changes.log', f"uncorrect transaction occured! user: {chat_id}, group: {group}")
+        #     return -1
+        
         for i in range(len(data)):
             #print(data[i])
             if data[i]['chat_id'] == chat_id:
