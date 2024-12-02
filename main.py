@@ -2,6 +2,7 @@ import telebot
 from telebot import types
 # from src.test import taims
 from api.parcer import parcer
+import src.tranzactions as trnz
 import datetime
 # import json
 
@@ -60,7 +61,7 @@ def text_messages(message):
             #today = today.replace(day=8, hour=0, minute=11) # DEBUG
             days_ago = 0
 
-            group = parcer.read_users(message.chat.id)
+            group = trnz.read_users(message.chat.id)
             if group == -1:
                 bot.send_message(message.chat.id, "У вас нет группы! Напишите команду Группа", reply_markup=menu)
                 return
@@ -68,7 +69,7 @@ def text_messages(message):
             for i in range(5): # check the last 5 days
                 if getter.get_info(group, today) == 0:
 
-                    data = getter.json_read(f'cache/{group}.json') # read the json
+                    data = trnz.json_read(f'cache/{group}.json') # read the json
 
                     date_call = "%s, %s %s" % (days_list[today.weekday()], today.day, month_list[today.month - 1]) # date to format: Суббота, 7 декабря
 
@@ -112,7 +113,7 @@ def text_messages(message):
 
         elif change_group_flag == True: # change group command
             group = message.text
-            if getter.write_users(message.chat.id, group) == -1: # try to write and check if all good
+            if trnz.write_users(message.chat.id, group) == -1: # try to write and check if all good
                 bot.send_message(message.chat.id, "Неккоректный формат группы, попробуйте еще раз! Формат в виде: 00.00.00", reply_markup=menu)
                 return
 
