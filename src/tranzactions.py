@@ -12,7 +12,6 @@ def write_users(chat_id, group, pgroup, dist_skip):
         with open('data/users.json', 'r') as file: # read the json
             data = json.load(file)
 
-        statement = True
         group = group.strip()
 
         # print(group) # проверка
@@ -28,17 +27,20 @@ def write_users(chat_id, group, pgroup, dist_skip):
         for i in range(len(data)):
             #print(data[i])
             if data[i]['chat_id'] == chat_id:
-                if data[i]['group'] != group:
-                    data[i]['group'] = group
-                    log_write('logs/user_changes.log', f"user: {chat_id} change group to: {group}")
-                    statement = False
+                if (data[i]['group'] != group or data[i]['pgroup'] != pgroup or data[i]['dist_skip'] != dist_skip):
+                    data[i] = ({"chat_id": chat_id, "group": group, "pgroup": pgroup, "dist_skip": dist_skip})
+                    log_write('logs/user_changes.log', f"user: {chat_id} change options")
                     break
-                statement = False
+
+            if i == len(data) - 1 and data[i]['chat_id'] != chat_id:
+                data.append({"chat_id": chat_id, "group": group, "pgroup": pgroup, "dist_skip": dist_skip})
+                log_write('logs/user_changes.log', f"user: {chat_id} create profile, group: {group}")
                 break
-        if statement:
+                    
             
-            data.append({"chat_id": chat_id, "group": group, "pgroup": pgroup, "dist_skip": dist_skip})
-            log_write('logs/user_changes.log', f"user: {chat_id} create profile, group: {group}")
+            
+            
+
         file = open('data/users.json', 'w')
         content = json.dumps(data)
         file.write(content)
@@ -63,7 +65,8 @@ def read_users(chat_id):
         for i in range(len(data)):
             #print(data[i])
             if data[i]['chat_id'] == chat_id:
-                return data[i]['group']
+                return data[i]
         return -1
     except Exception as e:
         log_write("logs/errors.log", str(e))
+
