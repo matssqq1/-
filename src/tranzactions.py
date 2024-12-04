@@ -70,5 +70,5 @@ def read_messages():
     with open("src/messages.txt", "r", encoding="utf-8") as file:
         txt = file.read()
 
-    out = txt.split('\n')
+    out = txt.split('////')
     return out
