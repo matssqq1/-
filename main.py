@@ -2,7 +2,7 @@ import telebot
 from telebot import types
 # from src.test import taims
 from api.parcer import parcer
-import src.tranzactions as trnz
+import src.tranzactions as tr
 import datetime
 # import json
 
@@ -14,7 +14,9 @@ bot = telebot.TeleBot('8130108661:AAES_8zx0x-fWAucFfUQ7GHTmFqV_WES5k4')
 
 menu = types.ReplyKeyboardMarkup(resize_keyboard=True)
 menu.add(types.KeyboardButton("Пара"), types.KeyboardButton("Настройка")) # add 2 buttons
- 
+
+messages = tr.read_messages()
+
 getter = parcer()
 #start bot codding commands /start
 
@@ -43,19 +45,19 @@ def text_messages(message):
             #today = today.replace(day=7, hour=8, minute=0) # DEBUG
             days_ago = 0
 
-            user_info = trnz.read_users(message.chat.id)
+            user_info = tr.read_users(message.chat.id)
 
             group = user_info["group"]
             pgroup = user_info["pgroup"]
             dist_skip = user_info["dist_skip"]
 
             if group == -1:
-                bot.send_message(message.chat.id, "У вас нет группы! Напишите команду Группа", reply_markup=menu)
+                bot.send_message(message.chat.id, messages[0], reply_markup=menu)
                 return
 
             for i in range(5): # check the last 5 days
                 if getter.get_info(group, today) == 0:
-                    data = trnz.json_read(f'cache/{group}.json') # read the json
+                    data = tr.json_read(f'cache/{group}.json') # read the json
 
                     date_call = "%s, %s %s" % (days_list[today.weekday()], today.day, month_list[today.month - 1]) # date to format: Суббота, 7 декабря
 
@@ -90,7 +92,6 @@ def text_messages(message):
                                 bot.send_message(message.chat.id, f"Ближайшая пара через: {str(delta)[:5].split(':')[0]}ч {str(delta)[:5].split(':')[1]}м\n{date_call}\n{data[i]['number']}, {data[i]['subject']}.\nПройдёт: {data[i]['time-start']} - {data [i]['time-end']},\nПрепод: {data[i]['teacher']}\nКабинет: {data[i]['room']}", reply_markup=menu)
                             return
                     
-                    print("im here2")
                     days_ago = days_ago + 1
                     today += datetime.timedelta(days=1)
                     today = today.replace(hour=0, minute=0)
@@ -98,20 +99,20 @@ def text_messages(message):
 
 
                 else: # if today is no para
-                    print("im here3")
+
                     days_ago = days_ago + 1
                     today += datetime.timedelta(days=1)
                     today = today.replace(hour=0, minute=0)
 
 
-            bot.send_message(message.chat.id, "В ближайшее время нет пар!", reply_markup=menu) # if no para in nearest 5 days
+            bot.send_message(message.chat.id, messages[1], reply_markup=menu) # if no para in nearest 5 days
 
         elif message.text[:9].lower() == 'настройка': # options command
-            bot.send_message(message.chat.id, "А теперь напиши свою группу!", reply_markup=menu)
+            bot.send_message(message.chat.id, messages[2], reply_markup=menu)
 
             change_group_flag = 1
             
-            user_info = trnz.read_users(message.chat.id)
+            user_info = tr.read_users(message.chat.id)
 
             group = user_info["group"]
             pgroup = user_info["pgroup"]
@@ -121,28 +122,28 @@ def text_messages(message):
         elif change_group_flag == 1: # change group command
             group = message.text
             
-            bot.send_message(message.chat.id, "Напишите вашу п/г", reply_markup=menu)
+            bot.send_message(message.chat.id, messages[3], reply_markup=menu)
             change_group_flag = 2
 
         elif change_group_flag == 2:
             pgroup = message.text
-            bot.send_message(message.chat.id, "Напишите, хотите ли вы пропуск дистанционных пар? (нет - 0/да - 1)", reply_markup=menu)
+            bot.send_message(message.chat.id, messages[4], reply_markup=menu)
             change_group_flag = 3
         
         elif change_group_flag == 3:
             dist_skip = message.text
 
-            if trnz.write_users(message.chat.id, group, pgroup, dist_skip) == -1: # try to write and check if all good
-                bot.send_message(message.chat.id, "Произошла ошибка", reply_markup=menu)
+            if tr.write_users(message.chat.id, group, pgroup, dist_skip) == -1: # try to write and check if all good
+                bot.send_message(message.chat.id, messages[5], reply_markup=menu)
                 change_group_flag = 0
                 return
 
             change_group_flag = 0
-            bot.send_message(message.chat.id, "Настройка завершена!", reply_markup=menu)
+            bot.send_message(message.chat.id, messages[6], reply_markup=menu)
 
         else: # if uncorrect command
-            bot.send_message(message.chat.id, "некорректная команда", reply_markup=menu)
+            bot.send_message(message.chat.id, messages[7], reply_markup=menu)
     except Exception as e:
-        trnz.log_write('logs/errors.log', ("main.py: " + str(e)))
+        tr.log_write('logs/errors.log', ("main.py: " + str(e)))
 
 bot.infinity_polling()

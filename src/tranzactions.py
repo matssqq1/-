@@ -29,18 +29,14 @@ def write_users(chat_id, group, pgroup, dist_skip):
             if data[i]['chat_id'] == chat_id:
                 if (data[i]['group'] != group or data[i]['pgroup'] != pgroup or data[i]['dist_skip'] != dist_skip):
                     data[i] = ({"chat_id": chat_id, "group": group, "pgroup": pgroup, "dist_skip": dist_skip})
-                    log_write('logs/user_changes.log', f"user: {chat_id} change options")
+                    log_write('logs/user_changes.log', f"user: {chat_id} change options on group: {group}, pgroup: {pgroup}, dist_skip: {dist_skip}")
                     break
 
             if i == len(data) - 1 and data[i]['chat_id'] != chat_id:
                 data.append({"chat_id": chat_id, "group": group, "pgroup": pgroup, "dist_skip": dist_skip})
-                log_write('logs/user_changes.log', f"user: {chat_id} create profile, group: {group}")
+                log_write('logs/user_changes.log', f"user: {chat_id} create profile, group: {group}, pgroup: {pgroup}, dist_skip: {dist_skip}")
                 break
                     
-            
-            
-            
-
         file = open('data/users.json', 'w')
         content = json.dumps(data)
         file.write(content)
@@ -70,3 +66,9 @@ def read_users(chat_id):
     except Exception as e:
         log_write("logs/errors.log", str(e))
 
+def read_messages():
+    with open("src/messages.txt", "r", encoding="utf-8") as file:
+        txt = file.read()
+
+    out = txt.split('\n')
+    return out
