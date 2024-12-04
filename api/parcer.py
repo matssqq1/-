@@ -115,7 +115,7 @@ class parcer:
 
             return 0
         except Exception as e:
-            tr.log_write("logs/errors.log", str(e))
+            tr.log_write("logs/errors.log", ("api/parcer.py: " + str(e)))
     
 
     

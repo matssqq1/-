@@ -7,7 +7,7 @@ def log_write(log_name, text):
     file.write(text + '\n')
     file.close()
 
-def write_users(chat_id, group):
+def write_users(chat_id, group, pgroup, dist_skip):
     try:
         with open('data/users.json', 'r') as file: # read the json
             data = json.load(file)
@@ -36,7 +36,8 @@ def write_users(chat_id, group):
                 statement = False
                 break
         if statement:
-            data.append({"chat_id": chat_id, "group": group})
+            
+            data.append({"chat_id": chat_id, "group": group, "pgroup": pgroup, "dist_skip": dist_skip})
             log_write('logs/user_changes.log', f"user: {chat_id} create profile, group: {group}")
         file = open('data/users.json', 'w')
         content = json.dumps(data)

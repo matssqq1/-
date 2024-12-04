@@ -1,0 +1,4 @@
+main.py: name 'change_group_flag' is not defined
+main.py: cannot access local variable 'change_group_flag' where it is not associated with a value
+main.py: cannot access local variable 'change_group_flag' where it is not associated with a value
+main.py: cannot access local variable 'change_group_flag' where it is not associated with a value
