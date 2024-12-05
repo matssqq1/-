@@ -22,7 +22,7 @@ getter = parcer()
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
-    bot.send_message(message.chat.id, "привет!", reply_markup = menu)
+    bot.send_message(message.chat.id, "привет!\nдля начала работы нажмите кнопку настройка,\nв клавиатуре бота.", reply_markup = menu)
     
 #stop bot codding commands /stop (verigud is not deleted)
 
